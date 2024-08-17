@@ -1,6 +1,6 @@
 {
-  "name": "genji",
-  "description": "A Next.js Web3 app template",
+  "name": "palestine",
+  "description": "Sharing resources about Palestine",
   "version": "0.1.0",
   "scripts": {
     "dev": "next dev",

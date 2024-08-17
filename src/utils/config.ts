@@ -1,7 +1,7 @@
 import { ThemingProps } from '@chakra-ui/react'
 export const SITE_DESCRIPTION = 'W3HC Next.js app template'
-export const SITE_NAME = 'Genji'
-export const SITE_URL = 'https://genji-app.netlify.app'
+export const SITE_NAME = 'Palestine'
+export const SITE_URL = 'https://palestine.li'
 
 export const THEME_INITIAL_COLOR = 'system'
 export const THEME_COLOR_SCHEME: ThemingProps['colorScheme'] = 'blue'
@@ -10,7 +10,7 @@ export const THEME_CONFIG = {
 }
 
 export const SOCIAL_TWITTER = 'w3hc8'
-export const SOCIAL_GITHUB = 'w3hc/genji'
+export const SOCIAL_GITHUB = 'w3hc/palestine'
 
 export const SERVER_SESSION_SETTINGS = {
   cookieName: SITE_NAME,
