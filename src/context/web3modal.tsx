@@ -20,9 +20,9 @@ const sepolia = {
 }
 
 const metadata = {
-  name: 'Genji',
-  description: 'Next.js + Web3 Modal + Ethers.js + Chakra UI',
-  url: 'https://genji.netlify.app',
+  name: 'palestine',
+  description: 'Sharing resources about Palestine',
+  url: 'https://palestine.li',
   icons: ['./favicon.ico'],
 }
 

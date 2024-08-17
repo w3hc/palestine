@@ -23,11 +23,11 @@ export function Header(props: Props) {
       <Spacer />
 
       <Flex alignItems="center" gap={4}>
-        <w3m-button />
+        {/* <w3m-button /> */}
         <Flex alignItems="center">
           <ThemeSwitcher />
           <Box mt={2} ml={4}>
-            <Link href="https://github.com/w3hc/genji" isExternal>
+            <Link href="https://github.com/w3hc/palestine" isExternal>
               <Icon as={FaGithub} boxSize={5} _hover={{ color: 'blue.500' }} />
             </Link>
           </Box>
