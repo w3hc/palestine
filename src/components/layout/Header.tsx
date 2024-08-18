@@ -1,37 +1,45 @@
 import React from 'react'
-import { Flex, useColorModeValue, Spacer, Heading, Box, Link, Icon } from '@chakra-ui/react'
+import { Flex, useColorModeValue, Spacer, Menu, MenuButton, MenuList, MenuItem, IconButton, Link, Box } from '@chakra-ui/react'
 import { LinkComponent } from './LinkComponent'
 import { ThemeSwitcher } from './ThemeSwitcher'
-import { SITE_NAME } from '../../utils/config'
 import { FaGithub } from 'react-icons/fa'
+import { HamburgerIcon } from '@chakra-ui/icons'
+import Image from 'next/image'
 
 interface Props {
   className?: string
 }
 
-export function Header(props: Props) {
-  const className = props.className ?? ''
+export function Header({ className = '' }: Props) {
+  const bgColor = useColorModeValue('gray.100', 'gray.900')
 
   return (
-    <Flex as="header" className={className} bg={useColorModeValue('gray.100', 'gray.900')} px={4} py={5} mb={8} alignItems="center">
+    <Flex as="header" className={className} bg={bgColor} px={4} py={5} mb={8} alignItems="center">
       <LinkComponent href="/">
-        <Heading as="h1" size="md">
-          {SITE_NAME}
-        </Heading>
+        <Box display="flex" borderRadius="lg">
+          <Image priority width="60" height="25" alt="palestine-flag" src="/palestine-flag.png" />
+        </Box>
       </LinkComponent>
 
       <Spacer />
 
       <Flex alignItems="center" gap={4}>
-        {/* <w3m-button /> */}
-        <Flex alignItems="center">
+        <Menu>
+          <MenuButton as={IconButton} aria-label="Options" icon={<HamburgerIcon />} variant="ghost" size="sm" />
+          <MenuList>
+            <LinkComponent href="/about">
+              <MenuItem fontSize="md">About</MenuItem>
+            </LinkComponent>
+            <LinkComponent href="/timeline">
+              <MenuItem fontSize="md">Timeline</MenuItem>
+            </LinkComponent>
+          </MenuList>
+        </Menu>
+        <IconButton as={Link} href="https://github.com/w3hc/palestine" aria-label="GitHub" icon={<FaGithub />} variant="ghost" size="sm" isExternal />
+        <Box mb={1}>
           <ThemeSwitcher />
-          <Box mt={2} ml={4}>
-            <Link href="https://github.com/w3hc/palestine" isExternal>
-              <Icon as={FaGithub} boxSize={4} _hover={{ color: 'blue.500' }} />
-            </Link>
-          </Box>
-        </Flex>
+        </Box>
+        {/* <w3m-button /> */}
       </Flex>
     </Flex>
   )
