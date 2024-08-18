@@ -1,10 +1,10 @@
 import { Text, Button, useToast } from '@chakra-ui/react'
 
-export default function New() {
+export default function Timeline() {
   return (
     <>
       <main>
-        <Text>A brand new page! 😋</Text>
+        <Text>Under dev...</Text>
       </main>
     </>
   )
