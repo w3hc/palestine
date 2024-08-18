@@ -9,7 +9,7 @@ interface Props {
 
 export function Head({ title, description }: Props) {
   const origin = typeof window !== 'undefined' && window.location.origin ? window.location.origin : SITE_URL
-  const img = `${origin}/huangshan.png`
+  const img = `${origin}/palestine-flag.png`
 
   return (
     <NextHead>
