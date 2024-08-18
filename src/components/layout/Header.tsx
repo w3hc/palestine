@@ -28,7 +28,7 @@ export function Header(props: Props) {
           <ThemeSwitcher />
           <Box mt={2} ml={4}>
             <Link href="https://github.com/w3hc/palestine" isExternal>
-              <Icon as={FaGithub} boxSize={5} _hover={{ color: 'blue.500' }} />
+              <Icon as={FaGithub} boxSize={4} _hover={{ color: 'blue.500' }} />
             </Link>
           </Box>
         </Flex>
