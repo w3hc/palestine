@@ -4,7 +4,7 @@ export default function Timeline() {
   return (
     <>
       <main>
-        <Text>Under dev...</Text>
+        <Text>[ Under dev... ]</Text>
       </main>
     </>
   )
