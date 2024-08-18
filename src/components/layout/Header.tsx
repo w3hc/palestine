@@ -16,8 +16,8 @@ export function Header({ className = '' }: Props) {
   return (
     <Flex as="header" className={className} bg={bgColor} px={4} py={5} mb={8} alignItems="center">
       <LinkComponent href="/">
-        <Box display="flex" borderRadius="lg">
-          <Image priority width="60" height="25" alt="palestine-flag" src="/palestine-flag.png" />
+        <Box position="relative" width="60px" height="25px" overflow="hidden" borderRadius="sm">
+          <Image priority layout="fill" objectFit="cover" alt="palestine-flag" src="/palestine-flag.png" />
         </Box>
       </LinkComponent>
 
@@ -36,9 +36,7 @@ export function Header({ className = '' }: Props) {
           </MenuList>
         </Menu>
         <IconButton as={Link} href="https://github.com/w3hc/palestine" aria-label="GitHub" icon={<FaGithub />} variant="ghost" size="sm" isExternal />
-        <Box mb={1}>
-          <ThemeSwitcher />
-        </Box>
+        <ThemeSwitcher />
         {/* <w3m-button /> */}
       </Flex>
     </Flex>
