@@ -4,6 +4,12 @@ Sharing resources about Palestine.
 
 Live at **[http://palestine.li](http://palestine.li)**.
 
+## Sources
+
+- https://data.techforpalestine.org/docs/killed-in-gaza/
+
+## Install
+
 ```bash
 pnpm i
 ```

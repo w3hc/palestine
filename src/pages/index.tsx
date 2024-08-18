@@ -1,13 +1,8 @@
 import React from 'react'
+import { Text, Box } from '@chakra-ui/react'
 import fs from 'fs'
 import path from 'path'
-import { Text, Button, useToast } from '@chakra-ui/react'
-import { useState } from 'react'
-import { LinkComponent } from '../components/layout/LinkComponent'
-import { Head } from '../components/layout/Head'
-import { SITE_NAME, SITE_DESCRIPTION } from '../utils/config'
 
-// Define the shape of a victim object
 interface Victim {
   id: string
   name: string
@@ -18,7 +13,6 @@ interface Victim {
   source: string
 }
 
-// Define the shape of the props for the Home component
 interface HomeProps {
   victims: Victim[]
 }
@@ -35,24 +29,40 @@ export async function getStaticProps() {
   }
 }
 
-const Home: React.FC<HomeProps> = ({ victims }) => {
-  const [isLoading, setIsLoading] = useState<boolean>(false)
+const formatDate = (dateString: string) => {
+  const date = new Date(dateString)
+  return date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  })
+}
 
+const getGenderPronoun = (sex: 'm' | 'f') => {
+  return sex === 'm' ? 'He' : 'She'
+}
+
+const Home: React.FC<HomeProps> = ({ victims }) => {
   return (
-    <>
-      <Head title={SITE_NAME} description={SITE_DESCRIPTION} />
-      <main>
-        <ul className="space-y-4">
-          {victims.map((victim) => (
-            <li key={victim.id} className="border p-4 rounded-md shadow-sm">
-              <p className="font-semibold">{victim.name}</p>
-              <p className="text-gray-600">{victim.en_name}</p>
-              <p className="text-sm text-gray-500">Date of Birth: {victim.dob}</p>
-            </li>
-          ))}
-        </ul>
-      </main>
-    </>
+    <main>
+      <Box as="ul" listStyleType="none" className="space-y-4">
+        {victims.map((victim) => (
+          <li key={victim.id} className="border p-4 rounded-md shadow-sm">
+            <Text fontSize="3xl">{victim.name}</Text>
+            <br />
+            <p className="text-gray-600">
+              <strong>{victim.en_name}</strong> was killed by the Israeli army.
+            </p>
+            <p className="text-sm text-gray-500">
+              {getGenderPronoun(victim.sex)} was born on {formatDate(victim.dob)}.
+            </p>
+            <br />
+            <br />
+            <br />
+          </li>
+        ))}
+      </Box>
+    </main>
   )
 }
 

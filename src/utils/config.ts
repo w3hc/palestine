@@ -1,5 +1,5 @@
 import { ThemingProps } from '@chakra-ui/react'
-export const SITE_DESCRIPTION = 'W3HC Next.js app template'
+export const SITE_DESCRIPTION = 'Sharing resources about Palestine'
 export const SITE_NAME = 'Palestine'
 export const SITE_URL = 'https://palestine.li'
 
