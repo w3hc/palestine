@@ -6,7 +6,10 @@ Live at **[http://palestine.li](http://palestine.li)**.
 
 ## Sources
 
-- https://data.techforpalestine.org/docs/killed-in-gaza/
+- **Tech for Palestine**
+  - Website: https://data.techforpalestine.org/
+  - GitHub: https://github.com/TechForPalestine/palestine-datasets
+  - Docs: https://data.techforpalestine.org/docs/killed-in-gaza
 
 ## Install
 
