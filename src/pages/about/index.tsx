@@ -9,13 +9,33 @@ export default function About() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    toast({
-      title: 'Message sent',
-      description: 'Your message was properly sent. Thank you for your input!',
-      status: 'success',
-      duration: 5000,
-      isClosable: true,
+    const form = e.target as HTMLFormElement
+    const formData = new FormData(form)
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(formData as any).toString(),
     })
+      .then(() => {
+        toast({
+          title: 'Message sent',
+          description: 'Your message was properly sent. Thank you for your input!',
+          status: 'success',
+          duration: 5000,
+          isClosable: true,
+        })
+        form.reset()
+      })
+      .catch((error) => {
+        toast({
+          title: 'Error',
+          description: 'There was an error sending your message. Please try again.',
+          status: 'error',
+          duration: 5000,
+          isClosable: true,
+        })
+        console.error('Error:', error)
+      })
   }
 
   return (
@@ -45,7 +65,7 @@ export default function About() {
               </FormControl>
 
               <FormControl isRequired>
-                <FormLabel htmlFor="email" fontSize="lg">
+                <FormLabel htmlFor="email" fontSize="md">
                   Email
                 </FormLabel>
                 <Input type="email" name="email" id="email" bg={inputBg} color={inputColor} fontSize="md" />
