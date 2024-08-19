@@ -1,5 +1,5 @@
-import React from 'react'
-import { Text, Box } from '@chakra-ui/react'
+import React, { useState, useEffect } from 'react'
+import { Text, Box, Image } from '@chakra-ui/react'
 
 interface Victim {
   id: string
@@ -49,10 +49,31 @@ const getGenderPronoun = (sex: 'm' | 'f') => {
 }
 
 const Home: React.FC<HomeProps> = ({ victims }) => {
+  const [displayedVictims, setDisplayedVictims] = useState<Victim[]>([])
+  const [isLoading, setIsLoading] = useState(false)
+
+  useEffect(() => {
+    setDisplayedVictims(victims.slice(0, 100))
+
+    const loadingTimer = setTimeout(() => {
+      setIsLoading(true)
+    }, 100)
+
+    const displayTimer = setTimeout(() => {
+      setIsLoading(false)
+      setDisplayedVictims(victims)
+    }, 3000)
+
+    return () => {
+      clearTimeout(loadingTimer)
+      clearTimeout(displayTimer)
+    }
+  }, [victims])
+
   return (
     <main>
       <Box as="ul" listStyleType="none" className="space-y-4">
-        {victims.map((victim) => (
+        {displayedVictims.map((victim) => (
           <li key={victim.id} className="border p-4 rounded-md shadow-sm">
             <Text fontSize="3xl">{victim.name}</Text>
             <br />
@@ -68,6 +89,11 @@ const Home: React.FC<HomeProps> = ({ victims }) => {
           </li>
         ))}
       </Box>
+      {isLoading && (
+        <Box position="fixed" top="50%" left="50%" transform="translate(-50%, -50%)" zIndex={9999}>
+          <Image src="/loader.svg" alt="Loading" />
+        </Box>
+      )}
     </main>
   )
 }
