@@ -1,7 +1,5 @@
 import React from 'react'
 import { Text, Box } from '@chakra-ui/react'
-import fs from 'fs'
-import path from 'path'
 
 interface Victim {
   id: string
@@ -17,15 +15,23 @@ interface HomeProps {
   victims: Victim[]
 }
 
-export async function getStaticProps() {
-  const filePath = path.join(process.cwd(), 'public', 'killed-in-gaza.json')
-  const fileContents = await fs.promises.readFile(filePath, 'utf8')
-  const data: Victim[] = JSON.parse(fileContents)
+export async function getServerSideProps() {
+  try {
+    const res = await fetch('https://data.techforpalestine.org/api/v2/killed-in-gaza.min.json')
+    const data: Victim[] = await res.json()
 
-  return {
-    props: {
-      victims: data,
-    },
+    return {
+      props: {
+        victims: data,
+      },
+    }
+  } catch (error) {
+    console.error('Failed to fetch data:', error)
+    return {
+      props: {
+        victims: [],
+      },
+    }
   }
 }
 
