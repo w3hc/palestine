@@ -44,11 +44,7 @@ export default function About() {
   return (
     <>
       <Head>
-        <form name="contact" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
-          <input type="text" name="name" />
-          <input type="email" name="email" />
-          <textarea name="message"></textarea>
-        </form>
+        <title>About - Palestine</title>
       </Head>
       <main>
         <VStack spacing={6} align="stretch">
@@ -65,7 +61,7 @@ export default function About() {
           </Text>
           <Text fontSize="xl">Feel free to contact me if you want to add an event in the timeline, report a bug, or suggest an improvement:</Text>
           <form name="contact" method="POST" data-netlify="true" onSubmit={handleSubmit}>
-            <input type="hidden" name="form-name" value="contact" />
+            <input type="hidden" name="contact" value="contact" />
             <VStack spacing={4} align="stretch">
               <FormControl isRequired>
                 <FormLabel htmlFor="name" fontSize="lg">
