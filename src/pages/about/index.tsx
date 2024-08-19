@@ -44,7 +44,6 @@ export default function About() {
   return (
     <>
       <Head>
-        {/* Hidden form for Netlify bot */}
         <form name="contact" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
           <input type="text" name="name" />
           <input type="email" name="email" />
