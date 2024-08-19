@@ -36,7 +36,10 @@ export function Header({ className = '' }: Props) {
           </MenuList>
         </Menu>
         <IconButton as={Link} href="https://github.com/w3hc/palestine" aria-label="GitHub" icon={<FaGithub />} variant="ghost" size="sm" isExternal />
-        <ThemeSwitcher />
+        <Box mb={1} ml={2}>
+          <ThemeSwitcher />
+        </Box>
+
         {/* <w3m-button /> */}
       </Flex>
     </Flex>
