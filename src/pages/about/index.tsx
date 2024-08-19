@@ -1,46 +1,9 @@
 import React from 'react'
-import { Text, VStack, Input, Textarea, Button, FormControl, FormLabel, useColorModeValue, useToast } from '@chakra-ui/react'
+import { Text, VStack } from '@chakra-ui/react'
 import { LinkComponent } from '../../components/layout/LinkComponent'
 import Head from 'next/head'
 
 export default function About() {
-  const inputBg = useColorModeValue('white', 'gray.700')
-  const inputColor = useColorModeValue('gray.800', 'white')
-  const toast = useToast()
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-
-    const form = e.target as HTMLFormElement
-    const formData = new FormData(form)
-
-    fetch('/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams(formData as any).toString(),
-    })
-      .then(() => {
-        toast({
-          title: 'Message sent',
-          description: 'Your message was properly sent. Thank you for your input!',
-          status: 'success',
-          duration: 5000,
-          isClosable: true,
-        })
-        form.reset()
-      })
-      .catch((error) => {
-        toast({
-          title: 'Error',
-          description: 'There was an error sending your message. Please try again.',
-          status: 'error',
-          duration: 5000,
-          isClosable: true,
-        })
-        console.error('Error:', error)
-      })
-  }
-
   return (
     <>
       <Head>
@@ -59,36 +22,7 @@ export default function About() {
             Tech for Palestine updates the list daily as new reports are released. The main sources are Gaza&apos;s Ministry of Health and Gaza&apos;s
             Government Media Office.
           </Text>
-          <Text fontSize="xl">Feel free to contact me if you want to add an event in the timeline, report a bug, or suggest an improvement:</Text>
-          <form name="contact" method="POST" data-netlify="true" onSubmit={handleSubmit}>
-            <input type="hidden" name="contact" value="contact" />
-            <VStack spacing={4} align="stretch">
-              <FormControl isRequired>
-                <FormLabel htmlFor="name" fontSize="lg">
-                  Name
-                </FormLabel>
-                <Input type="text" name="name" id="name" bg={inputBg} color={inputColor} fontSize="lg" />
-              </FormControl>
-
-              <FormControl isRequired>
-                <FormLabel htmlFor="email" fontSize="lg">
-                  Email
-                </FormLabel>
-                <Input type="email" name="email" id="email" bg={inputBg} color={inputColor} fontSize="lg" />
-              </FormControl>
-
-              <FormControl isRequired>
-                <FormLabel htmlFor="message" fontSize="lg">
-                  Message
-                </FormLabel>
-                <Textarea name="message" id="message" bg={inputBg} color={inputColor} fontSize="lg" />
-              </FormControl>
-
-              <Button type="submit" colorScheme="blue" fontSize="lg">
-                Send
-              </Button>
-            </VStack>
-          </form>
+          <Text fontSize="xl">Feel free to contact me if you want to add an event in the timeline, report a bug, or suggest an improvement.</Text>
         </VStack>
       </main>
     </>
