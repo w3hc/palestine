@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react'
-import { Text, Box, Image, VStack } from '@chakra-ui/react'
+import { Text, Box, Image, VStack, Flex } from '@chakra-ui/react'
 
 interface Victim {
   id: string
@@ -83,19 +83,26 @@ const Home: React.FC = () => {
   return (
     <main>
       <VStack spacing={4}>
-        <Box as="ul" listStyleType="none" className="space-y-4" width="100%">
+        <Box as="ul" listStyleType="none" width="100%">
           {displayedVictims.map((victim, index) => (
-            <li key={victim.id} className="border p-4 rounded-md shadow-sm" ref={index === displayedVictims.length - 1 ? lastVictimElementRef : null}>
-              <Text fontSize="3xl">{victim.name}</Text>
-              <br />
-              <p className="text-gray-600">
-                <strong>{victim.en_name}</strong> was killed by the Israeli army.
-              </p>
-              <p className="text-sm text-gray-500">
-                {getGenderPronoun(victim.sex)} was born on {formatDate(victim.dob)}.
-              </p>
-              <br />
-              <br />
+            <li key={victim.id} ref={index === displayedVictims.length - 1 ? lastVictimElementRef : null}>
+              <Flex
+                className="border p-4 rounded-md shadow-sm mb-4"
+                direction={{ base: 'column', md: 'row' }}
+                justify="space-between"
+                align="stretch">
+                <Box flex="1" pr={{ base: 0, md: 4 }} mb={{ base: 4, md: 0 }}>
+                  <Text className="text-gray-600">
+                    <strong>{victim.en_name}</strong> was killed by the Israeli army.
+                  </Text>
+                  <Text className="text-sm text-gray-500">
+                    {getGenderPronoun(victim.sex)} was born on {formatDate(victim.dob)}.
+                  </Text>
+                </Box>
+                <Box flex="1" textAlign="right" display="flex" justifyContent="flex-end" alignItems="center">
+                  <Text fontSize="3xl">{victim.name}</Text>
+                </Box>
+              </Flex>
               <br />
             </li>
           ))}
