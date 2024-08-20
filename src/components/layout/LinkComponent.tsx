@@ -1,8 +1,8 @@
 import React, { ReactNode } from 'react'
 import NextLink from 'next/link'
-import { Link } from '@chakra-ui/react'
+import { Link, LinkProps } from '@chakra-ui/react'
 
-interface Props {
+interface Props extends LinkProps {
   href: string
   children: ReactNode
   isExternal?: boolean
@@ -10,29 +10,37 @@ interface Props {
   onClick?: () => void
 }
 
-export function LinkComponent(props: Props) {
-  const className = props.className ?? ''
-  const isExternal = props.href.match(/^([a-z0-9]*:|.{0})\/\/.*$/) || props.isExternal
-  const color = '#45a2f8'
+export function LinkComponent({
+  href,
+  children,
+  isExternal,
+  className = '',
+  color = '#45a2f8',
+  _hover = { color: '#8c1c84' },
+  onClick,
+  ...rest
+}: Props) {
+  const isExternalLink = href.match(/^([a-z0-9]*:|.{0})\/\/.*$/) || isExternal
 
   const linkProps = {
     className,
-    color: color,
-    _hover: { color: '#8c1c84' },
-    onClick: props.onClick,
+    color,
+    _hover,
+    onClick,
+    ...rest,
   }
 
-  if (isExternal) {
+  if (isExternalLink) {
     return (
-      <Link {...linkProps} href={props.href} target="_blank" rel="noopener noreferrer">
-        {props.children}
+      <Link {...linkProps} href={href} target="_blank" rel="noopener noreferrer">
+        {children}
       </Link>
     )
   }
 
   return (
-    <Link as={NextLink} {...linkProps} href={props.href}>
-      {props.children}
+    <Link as={NextLink} {...linkProps} href={href}>
+      {children}
     </Link>
   )
 }
