@@ -1,21 +1,26 @@
 import React from 'react'
 import { Box, VStack, Text, Flex, useColorModeValue, Link, Heading } from '@chakra-ui/react'
 
-// TODO: Add more events (select attacks, UN resolutions, etc.)
 const timelineEvents = [
   {
     date: 'July 24, 2024',
-    event: 'Netanyahu is invited to speak to the US Congress.',
+    event: 'Netanyahu speaks to the US Congress.',
     link: 'https://www.youtube.com/watch?v=rKkcstwPd9k',
   },
   {
+    date: 'July 23, 2024',
+    event: 'Hamas and Fatah sign unity deal in Beijing aimed at Gaza governance.',
+    link: 'https://www.aljazeera.com/news/2024/7/23/palestinian-rivals-hamas-and-fatah-sign-unity-deal-brokered-by-china',
+  },
+
+  {
     date: 'July 9, 2024',
-    event: 'ICJ issues advisory opinion confirming West Bank and East Jerusalem as occupied territories.',
+    event: 'The ICJ issues an advisory opinion confirming that the West Bank and East Jerusalem are occupied territories.',
     link: 'https://www.icj-cij.org/case/131',
   },
   {
-    date: 'April 24, 2004',
-    event: "Bidens signs a $26 billion USD 'aid' for Israel.",
+    date: 'April 24, 2024',
+    event: "Biden signs a $26 billion USD 'aid' package for Israel.",
     link: 'https://www.washingtonpost.com/world/2024/04/24/israel-hamas-war-news-gaza-palestine/',
   },
   {
@@ -25,12 +30,53 @@ const timelineEvents = [
   },
   {
     date: 'January 26, 2024',
-    event: "ICJ orders provisional measures in response to South Africa's genocide case against Israel.",
+    event: "The ICJ orders provisional measures in response to South Africa's genocide case against Israel.",
     link: 'https://www.icj-cij.org/case/192',
   },
   {
+    date: 'February 7, 2024',
+    event: 'The Israeli army continues its attacks, particularly around Rafah.',
+    link: 'https://en.wikipedia.org/wiki/Israeli_invasion_of_the_Gaza_Strip',
+  },
+  {
+    date: 'January 2, 2024',
+    event: 'The Israeli army intensifies its attacks in southern Gaza.',
+    link: 'https://en.wikipedia.org/wiki/Israeli_invasion_of_the_Gaza_Strip',
+  },
+  {
+    date: 'December 1, 2023',
+    event: 'The Israeli army continues its attacks in central and southern Gaza, notably in Khan Younis.',
+    link: 'https://en.wikipedia.org/wiki/Israeli_invasion_of_the_Gaza_Strip',
+  },
+  {
+    date: 'November 24, 2023',
+    event: 'The Israeli army intensifies its attacks in southern Gaza after a temporary truce.',
+    link: 'https://en.wikipedia.org/wiki/Israeli_invasion_of_the_Gaza_Strip',
+  },
+  {
+    date: 'November 15, 2023',
+    event: 'The Israeli army attacks Al-Shifa hospital.',
+    link: 'https://en.wikipedia.org/wiki/Israeli_invasion_of_the_Gaza_Strip',
+  },
+  {
+    date: 'November 1, 2023',
+    event: 'The Israeli army expands its ground offensive, particularly around Gaza City.',
+    link: 'https://en.wikipedia.org/wiki/Israeli_invasion_of_the_Gaza_Strip',
+  },
+  {
+    date: 'October 27, 2023',
+    event: 'The Israeli army begins its ground incursion in northern Gaza.',
+    link: 'https://en.wikipedia.org/wiki/Israeli_invasion_of_the_Gaza_Strip',
+  },
+  {
+    date: 'October 13, 2023',
+    event: 'The Israeli army orders the evacuation of northern Gaza, intensifying its bombardments.',
+    link: 'https://en.wikipedia.org/wiki/Israeli_invasion_of_the_Gaza_Strip',
+  },
+  {
     date: 'October 7, 2023',
-    event: 'Operation Al-Aqsa Flood results in approximately 1,200 deaths in Israel and around 240 hostages taken.',
+    event:
+      "The 'Al-Aqsa Flood' attack results in approximately 1,200 deaths in Israel and the taking of around 240 hostages. The Israeli army starts airstrikes in response to the attack.",
     link: 'https://www.youtube.com/watch?v=_0atzea-mPY',
   },
 ]
@@ -80,7 +126,7 @@ const TimelineComponent = () => {
 
         <br />
 
-        <Box width="100%" textAlign="center" mt={16} mb={8}>
+        <Box width="100%" textAlign="center" mt={200} mb={8}>
           <Heading as="h2" size="2xl" color={textColor} fontWeight="bold">
             History did not start on October 7th
           </Heading>
