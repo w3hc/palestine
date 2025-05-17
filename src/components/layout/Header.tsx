@@ -33,8 +33,11 @@ export function Header({ className = '' }: Props) {
             <LinkComponent href="/about" color="white" _hover={{ color: '#000000' }}>
               <MenuItem fontSize="md">About</MenuItem>
             </LinkComponent>
-            <LinkComponent href="/timeline" color="white" _hover={{ color: '#149954' }}>
+            {/* <LinkComponent href="/timeline" color="white" _hover={{ color: '#149954' }}>
               <MenuItem fontSize="md">Timeline</MenuItem>
+            </LinkComponent> */}
+            <LinkComponent href="/report" color="white" _hover={{ color: '#149954' }}>
+              <MenuItem fontSize="md">Report</MenuItem>
             </LinkComponent>
           </MenuList>
         </Menu>
