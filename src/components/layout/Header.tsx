@@ -13,6 +13,8 @@ interface Props {
 export function Header({ className = '' }: Props) {
   const bgColor = useColorModeValue('gray.100', 'gray.900')
 
+  const GitHubIcon = FaGithub
+
   return (
     <Flex as="header" className={className} bg={bgColor} px={4} py={5} mb={8} alignItems="center">
       <LinkComponent href="/" color="white" _hover={{ color: 'white' }}>
@@ -33,8 +35,11 @@ export function Header({ className = '' }: Props) {
             <LinkComponent href="/about" color="white" _hover={{ color: '#000000' }}>
               <MenuItem fontSize="md">About</MenuItem>
             </LinkComponent>
-            <LinkComponent href="/timeline" color="white" _hover={{ color: '#149954' }}>
+            {/* <LinkComponent href="/timeline" color="white" _hover={{ color: '#149954' }}>
               <MenuItem fontSize="md">Timeline</MenuItem>
+            </LinkComponent> */}
+            <LinkComponent href="/report" color="white" _hover={{ color: '#149954' }}>
+              <MenuItem fontSize="md">Report</MenuItem>
             </LinkComponent>
           </MenuList>
         </Menu>
@@ -42,13 +47,15 @@ export function Header({ className = '' }: Props) {
           as={Link}
           href="https://github.com/w3hc/palestine"
           aria-label="GitHub"
-          icon={<FaGithub />}
+          // @ts-ignore - This is just to bypass the TypeScript error
+          icon={<GitHubIcon />}
           variant="ghost"
           size="sm"
           color="white"
           _hover={{ color: 'white', bg: 'transparent' }}
           isExternal
         />
+
         <Box mb={1} ml={2}>
           <ThemeSwitcher />
         </Box>
