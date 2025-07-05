@@ -13,13 +13,19 @@ interface Victim {
 
 const ITEMS_PER_BATCH = 500
 
-const Home: React.FC = () => {
+interface HomeProps {
+  isAutoscrollEnabled: boolean
+}
+
+const Home: React.FC<HomeProps> = ({ isAutoscrollEnabled }) => {
   const [displayedVictims, setDisplayedVictims] = useState<Victim[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [allVictims, setAllVictims] = useState<Victim[]>([])
   const [currentIndex, setCurrentIndex] = useState(0)
 
   const observer = useRef<IntersectionObserver | null>(null)
+  const autoscrollIntervalRef = useRef<NodeJS.Timeout | null>(null)
+
   const lastVictimElementRef = useCallback(
     (node: HTMLLIElement | null) => {
       if (isLoading) return
@@ -33,6 +39,29 @@ const Home: React.FC = () => {
     },
     [isLoading, currentIndex, allVictims.length]
   )
+
+  // Autoscroll effect
+  useEffect(() => {
+    if (isAutoscrollEnabled) {
+      autoscrollIntervalRef.current = setInterval(() => {
+        window.scrollBy({
+          top: 1, // Very slow scroll - 1 pixel per interval
+          behavior: 'auto',
+        })
+      }, 50) // Every 50ms, adjust for desired speed
+    } else {
+      if (autoscrollIntervalRef.current) {
+        clearInterval(autoscrollIntervalRef.current)
+        autoscrollIntervalRef.current = null
+      }
+    }
+
+    return () => {
+      if (autoscrollIntervalRef.current) {
+        clearInterval(autoscrollIntervalRef.current)
+      }
+    }
+  }, [isAutoscrollEnabled])
 
   useEffect(() => {
     const fetchAllVictims = async () => {
@@ -67,15 +96,6 @@ const Home: React.FC = () => {
     }, 300) // Short delay to prevent rapid consecutive loads
   }
 
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString)
-    return date.toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    })
-  }
-
   const getGenderPronoun = (sex: 'm' | 'f') => {
     return sex === 'm' ? 'He' : 'She'
   }
@@ -96,7 +116,7 @@ const Home: React.FC = () => {
                     <strong>{victim.en_name}</strong> was killed by the Israeli army.
                   </Text>
                   <Text className="text-sm text-gray-500">
-                    {getGenderPronoun(victim.sex)} was born on {formatDate(victim.dob)}.
+                    {getGenderPronoun(victim.sex)} was {victim.age} years old.
                   </Text>
                 </Box>
                 <Box flex="1" textAlign="right" display="flex" justifyContent="flex-end" alignItems="center">
