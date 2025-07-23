@@ -100,6 +100,20 @@ const Home: React.FC<HomeProps> = ({ isAutoscrollEnabled }) => {
     return sex === 'm' ? 'He' : 'She'
   }
 
+  const formatDateOfBirth = (dob: string) => {
+    if (!dob) return null
+    try {
+      const date = new Date(dob)
+      return date.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      })
+    } catch {
+      return null
+    }
+  }
+
   return (
     <main>
       <VStack spacing={4}>
@@ -115,9 +129,11 @@ const Home: React.FC<HomeProps> = ({ isAutoscrollEnabled }) => {
                   <Text className="text-gray-600">
                     <strong>{victim.en_name}</strong> was killed by the Israeli army.
                   </Text>
-                  <Text className="text-sm text-gray-500">
-                    {getGenderPronoun(victim.sex)} was {victim.age} years old.
-                  </Text>
+                  {formatDateOfBirth(victim.dob) && (
+                    <Text className="text-sm text-gray-500">
+                      {getGenderPronoun(victim.sex)} was born on {formatDateOfBirth(victim.dob)}.
+                    </Text>
+                  )}
                 </Box>
                 <Box flex="1" textAlign="right" display="flex" justifyContent="flex-end" alignItems="center">
                   <Text fontSize="3xl">{victim.name}</Text>
