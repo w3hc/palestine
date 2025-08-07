@@ -51,7 +51,10 @@ export function Header({ className = '', isAutoscrollEnabled = false, onAutoscro
               <MenuItem fontSize="md">Timeline</MenuItem>
             </LinkComponent> */}
             <LinkComponent href="/report" color="white" _hover={{ color: '#149954' }}>
-              <MenuItem fontSize="md">Report</MenuItem>
+              <MenuItem fontSize="md">Amnesty International Report</MenuItem>
+            </LinkComponent>
+            <LinkComponent href="/hands-off-palestine" color="white" _hover={{ color: '#E4312b' }}>
+              <MenuItem fontSize="md">Hands Off Palestine</MenuItem>
             </LinkComponent>
           </MenuList>
         </Menu>

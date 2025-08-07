@@ -18,6 +18,31 @@ export default function LeGroupeDeLaHaye() {
               </Badge>
             </Box>
 
+            {/* Audio Player */}
+            <Flex justify="center" mb={6}>
+              <Box bg="gray.50" _dark={{ bg: 'gray.800' }} p={6} borderRadius="md" textAlign="center" maxW="600px" w="100%">
+                <Text fontSize="lg" fontWeight="medium" mb={4}>
+                  🎧 Écoutez le texte lu par Julien
+                </Text>
+                <Box display="flex" justifyContent="center" mb={2}>
+                  <audio
+                    controls
+                    style={{
+                      width: '100%',
+                      maxWidth: '500px',
+                      height: '40px',
+                    }}
+                    preload="metadata">
+                    <source src="/le-goupe-de-la-haye-23-juillet-2025.mp3" type="audio/mpeg" />
+                    Votre navigateur ne supporte pas l&apos;élément audio.
+                  </audio>
+                </Box>
+                <Text fontSize="sm" color="gray.600" _dark={{ color: 'gray.400' }}>
+                  Durée : 5 minutes
+                </Text>
+              </Box>
+            </Flex>
+
             <Text fontSize="lg" fontWeight="medium" mb={4}>
               Le 31 janvier 2025 à La Haye, aux Pays-Bas, nous avons assisté à un moment historique : la naissance du Groupe de La Haye, une alliance
               sans précédent de nations déterminées à tenir Israël responsable de ses violations du droit international.
