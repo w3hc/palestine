@@ -1,16 +1,152 @@
-import React from 'react'
-import { Text, VStack, Box, Heading, Container, Divider } from '@chakra-ui/react'
+import React, { useEffect, useState } from 'react'
+import { Text, VStack, Box, Heading, Container, Divider, Select, Flex } from '@chakra-ui/react'
 import { LinkComponent } from '../../components/layout/LinkComponent'
 
 export default function HandsOffPalestine() {
+  const [selectedLanguage, setSelectedLanguage] = useState('fr')
+
+  // Scroll to anchor on mount if hash exists
+  useEffect(() => {
+    if (window.location.hash) {
+      const langCode = window.location.hash.substring(1)
+      if (['fr', 'en', 'zh'].includes(langCode)) {
+        setSelectedLanguage(langCode)
+        const element = document.getElementById(langCode)
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' })
+        }
+      }
+    }
+  }, [])
+
+  const handleLanguageChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const langCode = event.target.value
+    setSelectedLanguage(langCode)
+    const element = document.getElementById(langCode)
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' })
+    }
+    // Update URL hash without triggering page reload
+    window.history.pushState(null, '', `#${langCode}`)
+  }
+
   return (
     <>
       <main>
         <Container maxW="container.lg" p={0}>
-          <VStack spacing={8} align="stretch">
-            {/* English Version */}
+          {/* Language Selector - Top Right */}
+          <Flex justify="flex-end" mb={6} mt={4}>
             <Box>
-              <Heading as="h1" size="xl" textAlign="center" mt={8} mb={8}>
+              <Select value={selectedLanguage} onChange={handleLanguageChange} size="sm" width="120px" bg="white" _dark={{ bg: 'gray.800' }}>
+                <option value="fr">Français</option>
+                <option value="en">English</option>
+                <option value="zh">中文</option>
+              </Select>
+            </Box>
+          </Flex>
+
+          <VStack spacing={8} align="stretch">
+            {/* French Version */}
+            <Box id="fr">
+              <Heading as="h1" size="xl" textAlign="center" mb={8} mt={8}>
+                Pour que vive la Palestine
+              </Heading>
+
+              <Text fontSize="md" mb={4}>
+                Ils disent qu&apos;ils ont le droit de se défendre, mais ils ont lâché des dizaines de milliers de tonnes de bombes sur les gens qui
+                vivaient là. Ils disent qu&apos;ils gèrent l&apos;aide humanitaire, mais ils ont tué des gamins qui venaient chercher un sac de
+                farine. Ils disent qu&apos;il suffirait de libérer les otages pour que le massacre s&apos;arrête, mais ce sont eux-même qui ont saboté
+                toutes les négociations, ils ont frappé aveuglément, ils ont tout détruit. En Cisjordanie, les colons harcèlent, humilient, enferment,
+                et tuent sans pitié. Combien de milliers de Palestiniens ont été arrêtés et emprisonnés sans procès ? Combien sont torturés dans ces
+                prisons depuis des années ? Quand seront-ils libérés ?
+              </Text>
+
+              <Text fontSize="md" mb={4}>
+                La stratégie israélienne est connue : ils rendent la vie impossible aux Palestiniennes et Palestiniens pour les chasser et prendre
+                leur terre. À Jérusalem-Est et en Cisjordanie cela fait des décennies qu&apos;ils divisent méthodiquement les villages les uns des
+                autres, qu&apos;ils détruisent les maisons et déracinent les cultures à coup de bulldozers en espérant que les gens désespèrent et
+                s&apos;en aillent. À Gaza, ils affament de façon cynique celles et ceux qui ont survécu aux bombardements. Les gens s&apos;entretuent
+                pour un paquet de gâteaux. Ils les assoiffent jusqu&apos;à ce qu&apos;ils craquent et décident de partir. Mais Gaza est assiégée. Ils
+                ne peuvent pas partir. Ils sont piégés. Ce qui se passe n&apos;est ni une guerre ni une catastrophe naturelle, c&apos;est un génocide.
+                Le nettoyage ethnique en cours depuis des années est devenu en génocide.
+              </Text>
+
+              <Text fontSize="md" mb={4}>
+                Nous ne le laisserons pas faire.
+              </Text>
+
+              <Text fontSize="md" mb={4}>
+                L&apos;attaque d&apos;octobre 2023 ne peut en rien justifier la mort de centaines d&apos;humanitaires, de centaines de journalistes,
+                de milliers de soignants et de dizaines de milliers d&apos;enfants. Le monde entier est horrifié de ce déferlement de violence
+                aveugle. L&apos;Histoire n&apos;a pas commencé le 7 octobre : au début des années 80, il n&apos;y avait ni Hezbollah ni Hamas, et
+                pourtant Israël terrorisait déjà le peuple palestinien en toute impunité. Et aujourd&apos;hui on ampute des enfants sans anesthésie
+                tous les jours parce que des soldats israéliens s&apos;amusent à leur tirer dessus au sniper avant de s&apos;en vanter sur les
+                réseaux.
+              </Text>
+
+              <Text fontSize="md" mb={4}>
+                Nous ne pourrons pas dire que nous ne savions pas. Que dirons nos enfants si nous n&apos;agissons pas aujourd&apos;hui ? La Palestine
+                vit sous occupation étrangère depuis un siècle. Malgré les résolutions de l&apos;ONU, les déclarations et les bonnes intentions des
+                uns et des autres, très peu d&apos;actions contraignantes ont été engagées contre Israël. C&apos;est nous qui paierons cash le prix de
+                la lâcheté politique généralisée.
+              </Text>
+
+              <Text fontSize="md" mb={4}>
+                La colonisation doit cesser.
+              </Text>
+
+              <Text fontSize="md" mb={4}>
+                Le <LinkComponent href="/le-groupe-de-la-haye">Groupe de La Haye</LinkComponent> est une coalition internationale créée pour
+                coordonner des mesures juridiques, diplomatiques et économiques contre les violations du droit international en Palestine. Lancé par 8
+                pays, ce mouvement rassemble désormais 30 participants déterminés à faire respecter le droit international.
+              </Text>
+
+              <Text fontSize="md" mb={4}>
+                Six mesures concrètes ont été adoptées lors de la conférence de Bogotá pour briser l&apos;impunité d&apos;Israël : un embargo total
+                sur les armes et équipements militaires, l&apos;interdiction d&apos;accostage des navires transportant du matériel militaire vers
+                Israël, le contrôle systématique des navires battant pavillon national, la révision de tous les contrats publics avec des entreprises
+                complices, l&apos;engagement de poursuites judiciaires nationales contre les responsables de crimes de guerre, et l&apos;application
+                du principe de compétence universelle pour que les criminels soient jugés et condamnés.
+              </Text>
+
+              <Text fontSize="md" mb={4}>
+                La Namibie et la Malaisie ont bloqué l&apos;accès à leurs ports aux navires transportant des armes vers Israël. La Colombie a suspendu
+                ses exportations et rappelé son ambassadeur d&apos;Israël. La Bolivie a également rappelé son ambassadeur. Nous appelons tous les pays
+                du monde à rejoindre le Groupe de La Haye et à mettre en place immédiatement ces mesures décisives. Ils ont l&apos;obligation
+                juridique d&apos;agir, et c&apos;est à nous de leur rappeler avec la plus grande force : c&apos;est la seule façon de mettre fin au
+                génocide et à l&apos;occupation.
+              </Text>
+
+              <Text fontSize="md" mb={4}>
+                Faisons l&apos;effort de la compréhension de l&apos;autre. C&apos;est l&apos;affaire de tous. Portez aussi loin que possible la voix
+                des Palestiniennes et de Palestiniens. Quoi qu&apos;il arrive dans le futur, nous les aiderons à reconstruire la Palestine de demain.
+                Par le dialogue et par l&apos;entraide, nous ferons taire les armes, les mensonges et la bêtise. Nous ferons respecter le droit pour
+                que vive la Palestine.
+              </Text>
+
+              <Text fontSize="sm" color="gray.600" _dark={{ color: 'gray.400' }} mt={6}>
+                Publié le 6 août 2025 par
+                <LinkComponent href="https://julienberanger.com/contact"> Julien Béranger</LinkComponent>
+              </Text>
+              <Text fontSize="sm" color="gray.600" _dark={{ color: 'gray.400' }}>
+                Source :{' '}
+                <LinkComponent href="https://github.com/palestine-will-live/hands-off-palestine">
+                  https://github.com/palestine-will-live/hands-off-palestine
+                </LinkComponent>
+              </Text>
+              <Text fontSize="sm" color="gray.600" _dark={{ color: 'gray.400' }}>
+                Licence :{' '}
+                <LinkComponent href="https://github.com/palestine-will-live/hands-off-palestine?tab=readme-ov-file#license">
+                  CC BY-ND 4.0
+                </LinkComponent>
+              </Text>
+            </Box>
+
+            <Divider my={8} />
+
+            {/* English Version */}
+            <Box id="en">
+              <Heading as="h1" size="xl" textAlign="center" mb={8} mt={8}>
                 Hands Off Palestine
               </Heading>
 
@@ -100,8 +236,8 @@ export default function HandsOffPalestine() {
             <Divider my={8} />
 
             {/* Chinese Version */}
-            <Box>
-              <Heading as="h1" size="xl" textAlign="center" mb={8}>
+            <Box id="zh">
+              <Heading as="h1" size="xl" textAlign="center" mb={8} mt={8}>
                 不要干涉巴勒斯坦
               </Heading>
 
@@ -146,115 +282,17 @@ export default function HandsOffPalestine() {
               </Text>
 
               <Text fontSize="sm" color="gray.600" _dark={{ color: 'gray.400' }} mt={6}>
-                Published on August 6, 2025 by
-                <LinkComponent href="https://julienberanger.com/contact"> Julien Béranger</LinkComponent>
+                发布于2025年8月6日，作者：
+                <LinkComponent href="https://julienberanger.com/contact">贝于连</LinkComponent>
               </Text>
               <Text fontSize="sm" color="gray.600" _dark={{ color: 'gray.400' }}>
-                Source:{' '}
+                来源：{' '}
                 <LinkComponent href="https://github.com/palestine-will-live/hands-off-palestine">
                   https://github.com/palestine-will-live/hands-off-palestine
                 </LinkComponent>
               </Text>
               <Text fontSize="sm" color="gray.600" _dark={{ color: 'gray.400' }}>
-                License:{' '}
-                <LinkComponent href="https://github.com/palestine-will-live/hands-off-palestine?tab=readme-ov-file#license">
-                  CC BY-ND 4.0
-                </LinkComponent>
-              </Text>
-            </Box>
-
-            <Divider my={8} />
-
-            {/* French Version */}
-            <Box>
-              <Heading as="h1" size="xl" textAlign="center" mb={8}>
-                Hands Off Palestine
-              </Heading>
-
-              <Text fontSize="md" mb={4}>
-                Ils disent qu&apos;ils ont le droit de se défendre, mais ils ont lâché des dizaines de milliers de tonnes de bombes sur les gens qui
-                vivaient là. Ils disent qu&apos;ils gèrent l&apos;aide humanitaire, mais ils ont tué des gamins qui venaient chercher un sac de
-                farine. Ils disent qu&apos;il suffirait de libérer les otages pour que le massacre s&apos;arrête, mais ce sont eux-même qui ont saboté
-                toutes les négociations, ils ont frappé aveuglément, ils ont tout détruit. En Cisjordanie, les colons harcèlent, humilient, enferment,
-                et tuent sans pitié. Combien de milliers de Palestiniens ont été arrêtés et emprisonnés sans procès ? Combien sont torturés dans ces
-                prisons depuis des années ? Quand seront-ils libérés ?
-              </Text>
-
-              <Text fontSize="md" mb={4}>
-                La stratégie israélienne est connue : ils rendent la vie impossible aux Palestiniennes et Palestiniens pour les chasser et prendre
-                leur terre. À Jérusalem-Est et en Cisjordanie cela fait des décennies qu&apos;ils divisent méthodiquement les villages les uns des
-                autres, qu&apos;ils détruisent les maisons et déracinent les cultures à coup de bulldozers en espérant que les gens désespèrent et
-                s&apos;en aillent. À Gaza, ils affament de façon cynique celles et ceux qui ont survécu aux bombardements. Les gens s&apos;entretuent
-                pour un paquet de gâteaux. Ils les assoiffent jusqu&apos;à ce qu&apos;ils craquent et décident de partir. Mais Gaza est assiégée. Ils
-                ne peuvent pas partir. Ils sont piégés. Ce qui se passe n&apos;est ni une guerre ni une catastrophe naturelle, c&apos;est un génocide.
-                Le nettoyage ethnique en cours depuis des années est devenu en génocide.
-              </Text>
-
-              <Text fontSize="md" mb={4}>
-                Nous ne le laisserons pas faire.
-              </Text>
-
-              <Text fontSize="md" mb={4}>
-                L&apos;attaque d&apos;octobre 2023 ne peut en rien justifier la mort de centaines d&apos;humanitaires, de centaines de journalistes,
-                de milliers de soignants et de dizaines de milliers d&apos;enfants. Le monde entier est horrifié de ce déferlement de violence
-                aveugle. L&apos;Histoire n&apos;a pas commencé le 7 octobre : au début des années 80, il n&apos;y avait ni Hezbollah ni Hamas, et
-                pourtant Israël terrorisait déjà le peuple palestinien en toute impunité. Et aujourd&apos;hui on ampute des enfants sans anesthésie
-                tous les jours parce que des soldats israéliens s&apos;amusent à leur tirer dessus au sniper avant de s&apos;en vanter sur les
-                réseaux.
-              </Text>
-
-              <Text fontSize="md" mb={4}>
-                Nous ne pourrons pas dire que nous ne savions pas. Que dirons nos enfants si nous n&apos;agissons pas aujourd&apos;hui ? La Palestine
-                vit sous occupation étrangère depuis un siècle. Malgré les résolutions de l&apos;ONU, les déclarations et les bonnes intentions des
-                uns et des autres, très peu d&apos;actions contraignantes ont été engagées contre Israël. C&apos;est nous qui paierons cash le prix de
-                la lâcheté politique généralisée.
-              </Text>
-
-              <Text fontSize="md" mb={4}>
-                La colonisation doit cesser.
-              </Text>
-
-              <Text fontSize="md" mb={4}>
-                Le <LinkComponent href="/le-groupe-de-la-haye">Groupe de La Haye</LinkComponent> est une coalition internationale créée pour
-                coordonner des mesures juridiques, diplomatiques et économiques contre les violations du droit international en Palestine. Lancé par 8
-                pays, ce mouvement rassemble désormais 30 participants déterminés à faire respecter le droit international.
-              </Text>
-
-              <Text fontSize="md" mb={4}>
-                Six mesures concrètes ont été adoptées lors de la conférence de Bogotá pour briser l&apos;impunité d&apos;Israël : un embargo total
-                sur les armes et équipements militaires, l&apos;interdiction d&apos;accostage des navires transportant du matériel militaire vers
-                Israël, le contrôle systématique des navires battant pavillon national, la révision de tous les contrats publics avec des entreprises
-                complices, l&apos;engagement de poursuites judiciaires nationales contre les responsables de crimes de guerre, et l&apos;application
-                du principe de compétence universelle pour que les criminels soient jugés et condamnés.
-              </Text>
-
-              <Text fontSize="md" mb={4}>
-                La Namibie et la Malaisie ont bloqué l&apos;accès à leurs ports aux navires transportant des armes vers Israël. La Colombie a suspendu
-                ses exportations et rappelé son ambassadeur d&apos;Israël. La Bolivie a également rappelé son ambassadeur. Nous appelons tous les pays
-                du monde à rejoindre le Groupe de La Haye et à mettre en place immédiatement ces mesures décisives. Ils ont l&apos;obligation
-                juridique d&apos;agir, et c&apos;est à nous de leur rappeler avec la plus grande force : c&apos;est la seule façon de mettre fin au
-                génocide et à l&apos;occupation.
-              </Text>
-
-              <Text fontSize="md" mb={4}>
-                Faisons l&apos;effort de la compréhension de l&apos;autre. C&apos;est l&apos;affaire de tous. Portez aussi loin que possible la voix
-                des Palestiniennes et de Palestiniens. Quoi qu&apos;il arrive dans le futur, nous les aiderons à reconstruire la Palestine de demain.
-                Par le dialogue et par l&apos;entraide, nous ferons taire les armes, les mensonges et la bêtise. Nous ferons respecter le droit pour
-                que vive la Palestine.
-              </Text>
-
-              <Text fontSize="sm" color="gray.600" _dark={{ color: 'gray.400' }} mt={6}>
-                Published on August 6, 2025 by
-                <LinkComponent href="https://julienberanger.com/contact"> Julien Béranger</LinkComponent>
-              </Text>
-              <Text fontSize="sm" color="gray.600" _dark={{ color: 'gray.400' }}>
-                Source:{' '}
-                <LinkComponent href="https://github.com/palestine-will-live/hands-off-palestine">
-                  https://github.com/palestine-will-live/hands-off-palestine
-                </LinkComponent>
-              </Text>
-              <Text fontSize="sm" color="gray.600" _dark={{ color: 'gray.400' }}>
-                License:{' '}
+                许可证：{' '}
                 <LinkComponent href="https://github.com/palestine-will-live/hands-off-palestine?tab=readme-ov-file#license">
                   CC BY-ND 4.0
                 </LinkComponent>
