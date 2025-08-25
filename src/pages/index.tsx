@@ -140,7 +140,8 @@ const Home: React.FC<HomeProps> = ({ isAutoscrollEnabled }) => {
         {/* Header Message */}
         <Box mb={6} bg="gray.50" _dark={{ bg: 'gray.800' }} borderRadius="md" width="100%">
           <Text fontSize="lg" fontWeight="medium">
-            {totalCount.toLocaleString()} brothers and sisters, including {filteredCount.toLocaleString()} children were killed by the Israeli army.
+            Since October 7, 2023, {totalCount.toLocaleString()} brothers and sisters, including {filteredCount.toLocaleString()} children were killed
+            by the Israeli army.
           </Text>
           <Text fontSize="lg" fontWeight="medium" mt={10}>
             We will not forget them.
