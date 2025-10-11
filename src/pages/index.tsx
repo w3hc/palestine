@@ -74,15 +74,21 @@ const Home: React.FC<HomeProps> = ({ isAutoscrollEnabled }) => {
         // Set total count
         setTotalCount(data.length)
 
-        // Separate children and adults
-        const children = data.filter((victim) => victim.age < 18)
-        const adults = data.filter((victim) => victim.age >= 18)
-
-        // Combine with children first, then adults
-        const sortedData = [...children, ...adults]
+        // Sort all victims alphabetically by family name (last name)
+        const sortedData = data.sort((a, b) => {
+          const getLastName = (enName: string) => {
+            const nameParts = enName.trim().split(' ')
+            return nameParts[nameParts.length - 1].toLowerCase()
+          }
+          
+          const lastNameA = getLastName(a.en_name)
+          const lastNameB = getLastName(b.en_name)
+          
+          return lastNameA.localeCompare(lastNameB)
+        })
 
         setAllFilteredVictims(sortedData)
-        setFilteredCount(children.length)
+        setFilteredCount(data.filter((victim) => victim.age < 18).length)
         loadInitialVictims(sortedData)
       } catch (error) {
         console.error('Failed to fetch victims:', error)
@@ -140,12 +146,20 @@ const Home: React.FC<HomeProps> = ({ isAutoscrollEnabled }) => {
         {/* Header Message */}
         <Box mb={6} bg="gray.50" _dark={{ bg: 'gray.800' }} borderRadius="md" width="100%">
           <Text fontSize="lg" fontWeight="medium">
-            Since October 7, 2023, {totalCount.toLocaleString()} brothers and sisters, including {filteredCount.toLocaleString()} children were killed
-            by the Israeli army.
+            {totalCount > 0 ? (
+              <>
+                Since October 7, 2023, {totalCount.toLocaleString()} brothers and sisters, including {filteredCount.toLocaleString()} children were killed
+                by the Israeli army.
+              </>
+            ) : (
+              'Since October 7, 2023, ...'
+            )}
           </Text>
-          <Text fontSize="lg" fontWeight="medium" mt={10}>
-            We will not forget them.
-          </Text>
+          {totalCount > 0 && (
+            <Text fontSize="lg" fontWeight="medium" mt={10}>
+              We will not forget them.
+            </Text>
+          )}
         </Box>
 
         <Box as="ul" listStyleType="none" width="100%">
