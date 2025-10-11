@@ -13,17 +13,17 @@ interface Victim {
 
 const ITEMS_PER_BATCH = 500
 
-interface HomeProps {
+interface KidsProps {
   isAutoscrollEnabled: boolean
 }
 
-const Home: React.FC<HomeProps> = ({ isAutoscrollEnabled }) => {
+const Kids: React.FC<KidsProps> = ({ isAutoscrollEnabled }) => {
   const [displayedVictims, setDisplayedVictims] = useState<Victim[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [allFilteredVictims, setAllFilteredVictims] = useState<Victim[]>([])
   const [currentIndex, setCurrentIndex] = useState(0)
   const [totalCount, setTotalCount] = useState(0)
-  const [filteredCount, setFilteredCount] = useState(0)
+  const [kidsCount, setKidsCount] = useState(0)
 
   const observer = useRef<IntersectionObserver | null>(null)
   const autoscrollIntervalRef = useRef<NodeJS.Timeout | null>(null)
@@ -74,21 +74,22 @@ const Home: React.FC<HomeProps> = ({ isAutoscrollEnabled }) => {
         // Set total count
         setTotalCount(data.length)
 
-        // Sort all victims alphabetically by family name (last name)
-        const sortedData = data.sort((a, b) => {
+        // Filter for children only (under 18) and sort alphabetically by family name
+        const children = data.filter((victim) => victim.age < 18)
+        const sortedData = children.sort((a, b) => {
           const getLastName = (enName: string) => {
             const nameParts = enName.trim().split(' ')
             return nameParts[nameParts.length - 1].toLowerCase()
           }
-          
+
           const lastNameA = getLastName(a.en_name)
           const lastNameB = getLastName(b.en_name)
-          
+
           return lastNameA.localeCompare(lastNameB)
         })
 
         setAllFilteredVictims(sortedData)
-        setFilteredCount(data.filter((victim) => victim.age < 18).length)
+        setKidsCount(sortedData.length)
         loadInitialVictims(sortedData)
       } catch (error) {
         console.error('Failed to fetch victims:', error)
@@ -146,17 +147,14 @@ const Home: React.FC<HomeProps> = ({ isAutoscrollEnabled }) => {
         {/* Header Message */}
         <Box mb={6} bg="gray.50" _dark={{ bg: 'gray.800' }} borderRadius="md" width="100%">
           <Text fontSize="lg" fontWeight="medium">
-            {totalCount > 0 ? (
-              <>
-                Since October 7, 2023, {totalCount.toLocaleString()} brothers and sisters, including {filteredCount.toLocaleString()} children were killed
-                by the Israeli army.
-              </>
+            {kidsCount > 0 ? (
+              `Since October 7, 2023, ${kidsCount.toLocaleString()} children were killed by the Israeli army.`
             ) : (
               'Since October 7, 2023, ...'
             )}
           </Text>
-          {totalCount > 0 && (
-            <Text fontSize="lg" fontWeight="medium" mt={10}>
+          {kidsCount > 0 && (
+            <Text fontSize="lg" fontWeight="medium" mt={4}>
               We will not forget them.
             </Text>
           )}
@@ -194,10 +192,10 @@ const Home: React.FC<HomeProps> = ({ isAutoscrollEnabled }) => {
         {!isLoading && currentIndex >= allFilteredVictims.length && allFilteredVictims.length > 0 && (
           <Box textAlign="center" p={6} bg="gray.50" _dark={{ bg: 'gray.800' }} borderRadius="md" width="100%">
             <Text fontSize="lg" fontWeight="bold">
-              You have seen all {totalCount.toLocaleString()} names.
+              You have seen all {kidsCount.toLocaleString()} children&apos;s names.
             </Text>
             <Text fontSize="md" color="gray.600" _dark={{ color: 'gray.400' }} mt={2}>
-              Each name represents a life lost, a future stolen.
+              Each name represents a childhood cut short, a future that will never be.
             </Text>
           </Box>
         )}
@@ -206,4 +204,4 @@ const Home: React.FC<HomeProps> = ({ isAutoscrollEnabled }) => {
   )
 }
 
-export default Home
+export default Kids
